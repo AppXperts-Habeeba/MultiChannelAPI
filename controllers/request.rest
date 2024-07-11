@@ -1,0 +1,1 @@
+POST http://localhost:3000/shopee/getAccessToken?partnerId=1146041&partnerKey=4a6a43536f504b454a4d746857776b5373686b55614d6c6a7473534e52726a56&refreshToken=5862514d746e6e516e4c6a636f72644c&shopId=116116&host=https%3A%2F%2Fpartner.test-stable.shopeemobile.com&path=%2Fapi%2Fv2%2Fauth%2Faccess_token%2Fget

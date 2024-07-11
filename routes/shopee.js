@@ -134,7 +134,7 @@ router.get('/accesstoken', shopeeController.accesstoken);
  *           type: string
  *         description: Refresh Token
  *       - in: query
- *         name: shopid
+ *         name: shopId
  *         required: true
  *         schema:
  *           type: integer
