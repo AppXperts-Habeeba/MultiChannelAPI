@@ -1,49 +1,110 @@
+const express = require('express');
+const router = express.Router();
+const shopeeController = require('../controllers/shopeeController');
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Shopee
+ *     description: API for Shopee platform
+ */
+
 /**
  * @swagger
  * /shopee/auth:
  *   get:
  *     summary: Authorize store for Shopee
- *     description: Generates an authorization URL for Shopee API integration.
+ *     tags: [Shopee]
  *     parameters:
  *       - in: query
  *         name: partnerId
  *         required: true
  *         schema:
  *           type: integer
- *         description: Partner ID for Shopee
+ *         description: Partner ID
  *       - in: query
  *         name: partnerKey
  *         required: true
  *         schema:
  *           type: string
- *         description: Temporary partner key for Shopee
+ *         description: Partner Key
  *       - in: query
  *         name: host
  *         required: true
  *         schema:
  *           type: string
- *         description: Shopee API host URL
+ *         description: Host URL
  *       - in: query
  *         name: path
  *         required: true
  *         schema:
  *           type: string
- *         description: API path for Shopee authentication
+ *         description: API path
  *       - in: query
  *         name: redirectUrl
  *         required: true
  *         schema:
  *           type: string
- *         description: Redirect URL after authorization
+ *         description: Redirect URL
  *     responses:
- *       '200':
- *         description: Authorization URL generated successfully
+ *       200:
+ *         description: Authorization URL has been opened
+ *       400:
+ *         description: Missing required parameters
+ *       500:
+ *         description: Error authorizing store
  */
-const express = require('express');
-const router = express.Router();
-const shopeeController = require('../controllers/shopeeController');
-
 router.get('/auth', shopeeController.authorizeStore);
-router.get('/get_access_token', shopeeController.accesstoken);
-
+/**
+ * @swagger
+ * /shopee/accesstoken:
+ *   get:
+ *     summary: Get access token for Shopee
+ *     tags: [Shopee]
+ *     parameters:
+ *       - in: query
+ *         name: partnerId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Partner ID
+ *       - in: query
+ *         name: partnerKey
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Partner Key
+ *       - in: query
+ *         name: code
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Authorization code
+ *       - in: query
+ *         name: shopid
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Shop ID
+ *       - in: query
+ *         name: host
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Host URL
+ *       - in: query
+ *         name: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: API path
+ *     responses:
+ *       200:
+ *         description: Access token retrieved
+ *       400:
+ *         description: Missing required parameters
+ *       500:
+ *         description: Error retrieving access token
+ */
+router.get('/accesstoken', shopeeController.accesstoken);
 module.exports = router;

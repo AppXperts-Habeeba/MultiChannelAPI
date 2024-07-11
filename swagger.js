@@ -1,23 +1,40 @@
-const express = require('express');
+const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Your API Title',
+      title: 'API Documentation',
       version: '1.0.0',
-      description: 'Documentation for your API endpoints',
+      description: 'API documentation for the project',
     },
+    tags: [
+      {
+        name: 'Shopee',
+        description: 'API for Shopee platform',
+      },
+      {
+        name: 'Lazada',
+        description: 'API for Lazada platform',
+      },
+      {
+        name: 'AmazonSG',
+        description: 'API for Amazon SG platform',
+      },
+      {
+        name: 'Tokopedia',
+        description: 'API for Tokopedia platform',
+      },
+    ],
   },
-  apis: ['./routes/*.js'], // Path to the API route files
+  apis: ['./routes/*.js'], // Paths to files containing OpenAPI definitions
 };
 
-const specs = swaggerJsdoc(options);
+const specs = swaggerJsDoc(options);
 
-const router = express.Router();
-router.use('/api-docs', swaggerUi.serve);
-router.get('/api-docs', swaggerUi.setup(specs));
 
-module.exports = router;
+
+module.exports = (app) => {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+};
